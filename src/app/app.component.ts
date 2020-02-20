@@ -11,7 +11,9 @@ export class AppComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetchPosts();
+  }
 
   onCreatePost(postData: { title: string; content: string }) {
     this.http.post(
@@ -22,7 +24,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onFetchPosts() {}
+  onFetchPosts() {
+    this.fetchPosts();
+  }
 
   onClearPosts() {}
+
+  private fetchPosts() {
+    this.http.get('https://ng-complete-guide-bd60b.firebaseio.com/posts.json').subscribe((posts) => {
+      console.log(posts);
+    });
+  }
 }
